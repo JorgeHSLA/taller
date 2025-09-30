@@ -19,7 +19,7 @@
                         <i class="bi bi-code-square fs-4 me-2"></i>
                         <span class="fw-semibold">TallerWeb</span>
                     </a>
-                    <app-navbar></app-navbar>
+                    <app-navbar (userSelected)="onUserSelected($event)"></app-navbar>
                     <div class="d-flex gap-3">
                         <a href="#" class="text-white text-decoration-none">
                             <i class="bi bi-github fs-4"></i>
@@ -39,14 +39,14 @@
             <div class="col-12">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <app-usuario-data></app-usuario-data>
+                        <app-usuario-data [username]="selectedUsername()"></app-usuario-data>
                     </div>
                 </div>
             </div>
             <div class="col-12">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <app-usuario-posts></app-usuario-posts>
+                        <app-usuario-posts [username]="selectedUsername()"></app-usuario-posts>
                     </div>
                 </div>
             </div>

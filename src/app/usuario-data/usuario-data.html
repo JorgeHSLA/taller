@@ -1,1 +1,57 @@
-<p>usuario-data works!</p>
+@if (!user) {
+    <div class="alert alert-info d-flex align-items-center gap-2 py-3">
+        <i class="bi bi-person-exclamation fs-4"></i>
+        <span>No se ha seleccionado ningún usuario</span>
+    </div>
+} @else {
+    <div class="user-profile">
+        <div class="profile-header mb-4">
+            <div class="d-flex align-items-center gap-3">
+                <div class="avatar-container">
+                    <i class="bi bi-person-circle display-4 text-primary"></i>
+                </div>
+                <div>
+                    <h3 class="mb-1">{{user.firstName}} {{user.lastName}}</h3>
+                    <span class="text-muted">@{{user.username}}</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="profile-details">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="info-card bg-light p-3 rounded-3">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="bi bi-person-vcard me-2 text-primary"></i>
+                            <h5 class="mb-0">Información Personal</h5>
+                        </div>
+                        <div class="info-item mb-2">
+                            <span class="text-muted">Edad</span>
+                            <p class="mb-0">{{user.age}} años</p>
+                        </div>
+                        <div class="info-item">
+                            <span class="text-muted">Email</span>
+                            <p class="mb-0">{{user.email}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="info-card bg-light p-3 rounded-3">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="bi bi-geo-alt me-2 text-primary"></i>
+                            <h5 class="mb-0">Ubicación</h5>
+                        </div>
+                        <div class="info-item mb-2">
+                            <span class="text-muted">Ciudad</span>
+                            <p class="mb-0">{{user.address.city}}</p>
+                        </div>
+                        <div class="info-item">
+                            <span class="text-muted">País</span>
+                            <p class="mb-0">{{user.address.country}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

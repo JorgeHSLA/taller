@@ -15,4 +15,5 @@ export interface User {
     city: string;
     country: string;
   };
+  age:number;
 }

@@ -1,1 +1,50 @@
-<p>usuario-posts works!</p>
+<div *ngIf="posts.length === 0" style="text-align: center; padding: 40px; background: #f8f9fa; border-radius: 8px; margin: 20px;">
+    <i class="bi bi-journal-x" style="font-size: 3rem; color: #6c757d; margin-bottom: 15px;"></i>
+    <h3>No hay publicaciones disponibles</h3>
+    <p style="color: #6c757d;">Este usuario aún no ha realizado ninguna publicación.</p>
+</div>
+
+<div *ngFor="let post of posts; let i = index" style="border: 1px solid #ddd; margin: 10px; padding: 15px; border-radius: 8px;">
+    <!-- Título del post -->
+    <h3 style="margin: 0 0 10px 0;">{{post.title}}</h3>
+    
+    <!-- Contenido del post -->
+    <p style="color: #666;">{{post.body}}</p>
+    
+    <!-- Reacciones y vistas -->
+    <div style="display: flex; gap: 20px; margin: 10px 0;">
+        <span><i class="bi bi-hand-thumbs-up"></i> {{post.reactions.likes}}</span>
+        <span><i class="bi bi-hand-thumbs-down"></i> {{post.reactions.dislikes}}</span>
+        <span><i class="bi bi-eye"></i> {{post.views}} vistas</span>
+    </div>
+    
+    <!-- Tags -->
+    <div style="margin: 10px 0;">
+        <span *ngFor="let tag of post.tags" 
+              style="background: #e9ecef; padding: 4px 8px; margin-right: 5px; border-radius: 4px; font-size: 0.9em;">
+            {{tag}}
+        </span>
+    </div>
+    
+    <!-- Toggle de comentarios -->
+    <button #btn
+            (click)="btn.setAttribute('aria-expanded', btn.getAttribute('aria-expanded') === 'true' ? 'false' : 'true')"
+            [style.background]="post.comments?.length ? '#007bff' : '#6c757d'"
+            style="color: white; border: none; padding: 8px 15px; border-radius: 4px; margin: 10px 0; cursor: pointer;"
+            [attr.aria-expanded]="false">
+        {{post.comments?.length ? (btn?.getAttribute('aria-expanded') === 'true' ? 'Ocultar' : 'Ver') + ' comentarios' : 'Sin comentarios'}}
+        ({{post.comments?.length || 0}})
+    </button>
+    
+    <!-- Sección de comentarios -->
+    <div *ngIf="btn?.getAttribute('aria-expanded') === 'true' && post.comments?.length" style="margin-top: 10px;">
+        <div *ngFor="let comment of post.comments" 
+             style="background: #f8f9fa; padding: 10px; margin: 5px 0; border-radius: 4px;">
+            <p style="margin: 0 0 5px 0;">{{comment.body}}</p>
+            <div style="font-size: 0.9em; color: #666;">
+                <i class="bi bi-heart-fill" style="color: #dc3545;"></i> {{comment.likes}} likes
+                <span *ngIf="comment.user"> - {{comment.user.username}}</span>
+            </div>
+        </div>
+    </div>
+</div>

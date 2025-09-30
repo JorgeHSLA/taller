@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Post } from '../models/Post';
+import { map, Observable } from 'rxjs';
+import { Comment } from '../models/Comment'; 
 
 @Injectable({ providedIn: 'root' })
 export class PostsService {
@@ -9,15 +11,15 @@ export class PostsService {
 
   constructor(private http: HttpClient) {}
 
-  getPostsByUser(userId: number) {
-    return this.http.get<{ posts: Post[] }>(
-      `${this.apiUrl}/user/${userId}`
-    );
+  getPostsByUser(userId: number): Observable<Post[]> {
+    return this.http
+      .get<{ posts: Post[] }>(`${this.apiUrl}/user/${userId}`)
+      .pipe(map((res) => res.posts)); // 👈 aquí extraes el array
   }
 
-  getCommentsByPost(postId: number) {
-    return this.http.get<{ comments: Comment[] }>(
-      `${this.commentsUrl}/post/${postId}`
-    );
+  getCommentsByPost(postId: number): Observable<Comment[]> {
+    return this.http
+      .get<{ comments: Comment[] }>(`${this.commentsUrl}/post/${postId}`)
+      .pipe(map((res) => res.comments)); // 👈 igual aquí
   }
 }

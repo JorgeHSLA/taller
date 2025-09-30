@@ -73,6 +73,5 @@ export class Navbar {
     this.autoCompleteControl.setValue(username);
     this.isOpen.set(false);
     this.userSelected.emit(username); // Emitimos el username seleccionado al padre
-
   }
 }

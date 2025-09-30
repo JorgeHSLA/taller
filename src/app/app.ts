@@ -13,4 +13,12 @@ import { UsuarioPosts } from "./usuario-posts/usuario-posts";
   styleUrl: './app.css'
 })
 export class App {
+  selectedUsername = signal<string>('');
+
+  onUserSelected(username: string) {
+    this.selectedUsername.set(username);
+    console.log('Usuario seleccionado:', username);
+  }
+  
+
 }
