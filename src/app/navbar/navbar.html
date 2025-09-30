@@ -1,0 +1,42 @@
+<div class="form-control">
+    <div class="input-group">
+        
+        <input
+            type="text"
+            id="users"
+            class="form-control bg-transparent"
+            placeholder="Buscar usuarios..."
+            cdkOverlayOrigin
+            #autocomplete="cdkOverlayOrigin"
+            [formControl]="autoCompleteControl"
+            (focusin)="handleFocus()"
+            (focusout)="handleBlur()"
+        >
+    </div>
+</div>
+
+<ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="autocomplete"
+    [cdkConnectedOverlayOpen]="isOpen()"
+    [cdkConnectedOverlayHasBackdrop]="false"
+    [cdkConnectedOverlayPositions]="position"
+>
+    <div class="overlay-container">
+        <ul class="user-list">
+            @for(user of userListFilter(); track user.id) {
+                <li (click)="selectUser(user.username)" class="user-item">
+                    <i class="bi bi-person-circle"></i>
+                    <div class="user-info">
+                        <span class="username">{{user.username}}</span>
+                    </div>
+                </li>
+            } @empty {
+                <li class="text-muted text-center no-results">
+                    <i class="bi bi-search me-2"></i>
+                    No se encontraron usuarios
+                </li>
+            }
+        </ul>
+    </div>
+</ng-template>
